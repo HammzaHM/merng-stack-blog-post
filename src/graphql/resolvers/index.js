@@ -1,3 +1,4 @@
+import comments from './comments'
 import postsResolvers from './posts'
 import usersResolvers from './users'
 
@@ -8,6 +9,7 @@ export const resolvers = {
   },
   Mutation: {
     ...usersResolvers.Mutation,
-    ...postsResolvers.Mutation
+    ...postsResolvers.Mutation,
+    ...comments.Mutation
   }
 }

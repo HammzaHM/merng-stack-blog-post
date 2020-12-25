@@ -85,7 +85,6 @@ export default {
           token
         }
       } catch (error) {
-        console.log(error)
         return new UserInputError(error)
       }
     }

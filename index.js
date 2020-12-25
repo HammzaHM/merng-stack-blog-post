@@ -3,6 +3,7 @@ import mongoose from 'mongoose'
 
 import { config } from './src/config'
 import { resolvers, typeDefs } from './src/graphql'
+import 'apollo-cache-control'
 
 const myPlugin = {
   serverWillStart (requestContext) {

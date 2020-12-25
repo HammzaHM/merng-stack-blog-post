@@ -31,8 +31,8 @@ export default {
       return newPost.save()
     },
     async deletePost (_, { postId }, context) {
-      const user = checkAuth(context)
       try {
+        const user = checkAuth(context)
         const foundPost = await Post.findById(postId)
 
         if (!foundPost) {
@@ -47,6 +47,32 @@ export default {
         throw new AuthenticationError('Forbidden!')
       } catch (error) {
         throw new Error(error)
+      }
+    },
+    likePost: async (_, { postId }, context) => {
+      const { username } = checkAuth(context)
+      try {
+        const foundPost = await Post.findById(postId)
+
+        if (!foundPost) {
+          return new UserInputError('Post Not Found!')
+        }
+
+        if (foundPost.username !== username) {
+          return new AuthenticationError('Forbidden')
+        }
+
+        const userLike = foundPost.likes.find(like => like.username === username)
+
+        if (userLike) {
+          foundPost.likes = foundPost.likes.filter(like => like.username !== username)
+        } else {
+          foundPost.likes.push({ username, createdAt: new Date().toISOString() })
+        }
+
+        return foundPost.save()
+      } catch (err) {
+        return new UserInputError(err)
       }
     }
   }

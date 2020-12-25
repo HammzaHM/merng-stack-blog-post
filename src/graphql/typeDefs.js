@@ -6,6 +6,20 @@ type Post {
     body: String!
     username: String!
     createdAt: String!
+    comments: [Comment]
+    likes: [Like]
+}
+
+type Comment {
+    id: ID!
+    body: String!
+    username: String!
+    likes: [Like]
+}
+
+type Like {
+    id: ID!
+    username: String!
 }
 
 type User {
@@ -24,9 +38,9 @@ input RegisterInput {
 }
 
 type Query {
-    getPosts: [Post]
+    getPosts: [Post] @cacheControl(maxAge: 10)
     getPost(postId: ID!): Post
-    getUsers: [User]
+    getUsers: [User]  @cacheControl(maxAge: 5)
     getUser(userId: ID!): User
 }
 
@@ -35,5 +49,8 @@ type Mutation {
     login(username: String!, password: String!): User! 
     createPost(body: String!): Post!
     deletePost(postId:ID!): String!
-}
-`
+    likePost(postId: ID!): Post!
+    createComment(postId: ID!, body: String!): Post!
+    deleteComment(postId: ID!, commentId: ID!): Post!
+    likeComment(commentId: ID!, postId: ID!): Post!
+}`
