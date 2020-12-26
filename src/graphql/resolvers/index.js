@@ -3,6 +3,10 @@ import postsResolvers from './posts'
 import usersResolvers from './users'
 
 export const resolvers = {
+  Post: {
+    commentCount: ({ comments }) => comments.length,
+    likeCount: ({ likes }) => likes.length
+  },
   Query: {
     ...postsResolvers.Query,
     ...usersResolvers.Query
@@ -11,5 +15,8 @@ export const resolvers = {
     ...usersResolvers.Mutation,
     ...postsResolvers.Mutation,
     ...comments.Mutation
+  },
+  Subscription: {
+    ...postsResolvers.Subscription
   }
 }

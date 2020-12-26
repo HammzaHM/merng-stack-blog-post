@@ -1,4 +1,4 @@
-import { ApolloServer } from 'apollo-server'
+import { ApolloServer, PubSub } from 'apollo-server'
 import mongoose from 'mongoose'
 
 import { config } from './src/config'
@@ -11,10 +11,12 @@ const myPlugin = {
   }
 }
 
+const pubsub = new PubSub()
+
 const server = new ApolloServer({
   typeDefs,
   resolvers,
-  context: ({ req }) => ({ req }),
+  context: ({ req }) => ({ req, pubsub }),
   plugins: [myPlugin],
   introspection: true
 });

@@ -20,15 +20,28 @@ export default {
   Mutation: {
     async createPost (_, { body }, context) {
       const user = checkAuth(context)
+      try {
+        if (body.trim === '') {
+          throw new UserInputError("Post's body must be not empty!")
+        }
 
-      const newPost = new Post({
-        body,
-        user: user.id,
-        username: user.username,
-        createdAt: new Date().toISOString()
-      })
+        const newPost = new Post({
+          body,
+          user: user.id,
+          username: user.username,
+          createdAt: new Date().toISOString()
+        })
 
-      return newPost.save()
+        const createdPost = await newPost.save()
+
+        context.pubsub.publish('NEW_POST', {
+          newPost: createdPost
+        })
+
+        return createdPost
+      } catch (err) {
+        throw new UserInputError(err)
+      }
     },
     async deletePost (_, { postId }, context) {
       try {
@@ -74,6 +87,11 @@ export default {
       } catch (err) {
         return new UserInputError(err)
       }
+    }
+  },
+  Subscription: {
+    newPost: {
+      subscribe: (_, __, { pubsub }) => pubsub.asyncIterator('NEW_POST')
     }
   }
 }
