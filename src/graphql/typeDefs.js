@@ -17,11 +17,13 @@ type Comment {
     body: String!
     username: String!
     likes: [Like]
+    createdAt: String
 }
 
 type Like {
     id: ID!
     username: String!
+    createdAt: String
 }
 
 type User {

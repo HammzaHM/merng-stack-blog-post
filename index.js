@@ -8,6 +8,9 @@ import 'apollo-cache-control'
 const myPlugin = {
   serverWillStart (requestContext) {
     console.log('apollo server has been started!!!')
+  },
+  requestDidStart (requestContext) {
+    console.log('Request started! Query:\n', requestContext.request.query)
   }
 }
 
@@ -18,7 +21,7 @@ const server = new ApolloServer({
   resolvers,
   context: ({ req }) => ({ req, pubsub }),
   plugins: [myPlugin],
-  introspection: true
+  introspection: false
 });
 
 (async () => {
