@@ -5,14 +5,15 @@
   "license": "MIT",
   "scripts": {
     "serve": "node index.js",
-    "start-dev": "nodemon index.js --exec babel-node",
-    "build": "babel index.js -d dist",
+    "start-node": "nodemon index.js --exec babel-node",
+    "start-react": "cd client && yarn start",
+    "build": "babel index.js -d dist",  
     "start": "npm run build && node dist/index.js"
   },
   "dependencies": {
     "apollo-server": "^2.5.0",
     "bcryptjs": "^2.4.3",
-    "dotenv": "^8.2.0",
+    "dotenv": "^8.2.0", 
     "eslint-config-standard": "^16.0.2",
     "graphql": "^15.4.0",
     "graphql-tools": "^2.7.2",

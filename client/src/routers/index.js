@@ -1,18 +1,22 @@
 import React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import { Container } from 'semantic-ui-react'
-import { MenuBar } from '../components'
+import { MenuBar, PageNotFound } from '../components'
 
 import { Home, Login, Register } from '../containers'
+import { AuthRoute } from './AuthRoute'
 
 export const AppRouter = () => {
   return (
     <Router>
       <Container>
         <MenuBar />
-        <Route path='/' component={Home} exact />
-        <Route path='/login' component={Login} exact />
-        <Route path='/register' component={Register} exact />
+        <Switch>
+          <Route path='/' component={Home} exact />
+          <AuthRoute path='/login' component={Login} exact />
+          <AuthRoute path='/register' component={Register} exact />
+          <Route component={PageNotFound} />
+        </Switch>
       </Container>
     </Router>
   )

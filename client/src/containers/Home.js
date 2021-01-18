@@ -30,12 +30,11 @@ export function Home () {
   const { data, loading, error } = useQuery(POSTS)
 
   if (error) {
-    console.error(error)
     return null
   }
 
   if (loading) {
-    return <div><h1>loading....</h1></div>
+    return <h1>loading....</h1>
   }
 
   const posts = data.getPosts

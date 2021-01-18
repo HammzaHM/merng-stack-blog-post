@@ -10,9 +10,7 @@ export const PostCard = ({ post }) => {
     return null
   }
 
-  const { likes, comments, username, likeCount, commentsCount, id, createdAt, body, commentCount } = post
-
-  console.log({ comments, likeCount, likes, commentsCount })
+  const { username, likeCount, id, createdAt, body, commentCount } = post
 
   function onLikeClick () {
     console.log('Like me')

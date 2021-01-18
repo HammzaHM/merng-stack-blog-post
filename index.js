@@ -21,7 +21,7 @@ const server = new ApolloServer({
   resolvers,
   context: ({ req }) => ({ req, pubsub }),
   plugins: [myPlugin],
-  introspection: false
+  introspection: !!process.env.INTROSPECTION
 });
 
 (async () => {

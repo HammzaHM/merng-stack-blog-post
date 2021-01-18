@@ -32,6 +32,7 @@ type User {
     email: String!
     password: String!
     token: String!
+    createdAt: String!
 }
 
 input RegisterInput {

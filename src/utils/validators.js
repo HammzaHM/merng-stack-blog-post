@@ -19,12 +19,14 @@ export const validatorRegisterInput = ({
     if (!email.match(EMAIL_REGEX)) {
       errors.email = 'Email must be in a valid format'
     }
+  }
 
-    if (!password || !password.length) {
-      errors.password = 'password must not be empty'
-    } else if (password !== confirmPassword) {
-      errors.confirmPassword = 'Passwords must match'
-    }
+  if (!password || !password.length) {
+    errors.password = 'password must not be empty'
+  }
+
+  if (password !== confirmPassword) {
+    errors.confirmPassword = 'Passwords must match'
   }
 
   return {
@@ -40,8 +42,8 @@ export const validatorLoginInput = (username, password) => {
     errors.username = 'Username must not be empty'
   }
 
-  if (!password || password.length < 3) {
-    errors.password = 'password must be at least 3 characters'
+  if (!password || !password.length) {
+    errors.password = 'password must not be empty'
   }
 
   return {
